@@ -19,14 +19,16 @@ fn2 = args.file2.rsplit('/', 1)[-1].rsplit('\\', 1)[-1]
 file1 = open(args.file1, "r")
 file2 = open(args.file2, "r")
 
+lines1 = file1.readlines()
+lines2 = file2.readlines()
 
 class colors:
     HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
+    BLUE = '\033[94m'
+    CYAN = '\033[96m'
+    GREEN = '\033[92m'
+    ORANGE = '\033[93m'
+    RED = '\033[91m'
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
@@ -34,7 +36,7 @@ class colors:
 def colored(color, text):
     return(color + text + colors.ENDC)
 
-def find_string_difference(str1, str2):
+def string_difference(str1, str2):
     start = end =  ""
     #start
     for i in range (min(len(str1), len(str2))):
@@ -52,20 +54,39 @@ def find_string_difference(str1, str2):
     diff1 = str1[len(start):len(str1)-len(end)]
     diff2 = str2[len(start):len(str2)-len(end)]
             
-    return([start + colored(colors.FAIL, diff1) + end, start + colored(colors.FAIL, diff2) + end])
+    return([start + colored(colors.RED, diff1) + end, start + colored(colors.RED, diff2) + end])
+
+def line_difference(lines1, lines2): ###################
+    #start
+    for i in range (min(len(lines1), len(lines2))):
+        if lines1[i] != lines2[i]:
+            start += str1[i]
+        else: 
+            break
+    #end
+    for i in range (min(len(str1), len(str2))):
+        if (str1[::-1][i] == str2[::-1][i]):
+            end = str1[::-1][i] + end
+        else:
+            break
+    
+    diff1 = str1[len(start):len(str1)-len(end)]
+    diff2 = str2[len(start):len(str2)-len(end)]
+            
+    return([start + colored(colors.RED, diff1) + end, start + colored(colors.RED, diff2) + end])
 
 #full check
 if(args.full):
     #name check
-    print(colored(colors.OKBLUE, "Name Check:"))
+    print(colored(colors.BLUE, "Name Check:"))
     if (fn1 == fn2):
         print("No difference found!")
     else:
-        for string in find_string_difference(fn1, fn2):
+        for string in string_difference(fn1, fn2):
             print(string)
     print("")
 
-    print(colored(colors.OKBLUE, "File Size:"))
+    print(colored(colors.BLUE, "File Size:"))
     fs1 = os.path.getsize(fn1)
     fs2 = os.path.getsize(fn2)
     if (fs1 == fs2):
@@ -73,3 +94,6 @@ if(args.full):
     else:
         print(fn1 + f": {fs1} bytes")
         print(fn2 + f": {fs2} bytes")
+
+#normal check
+print(colored(colors.BLUE, "Content comparison"))
