@@ -4,7 +4,7 @@ Japan	261.289	168.1
 Italy	144.696	138.3
 Barbados	120.781	134.3
 Cabo Verde (Cape Verde)	127.407	130.5
-Portugal	116.048	120.1
+Portugal    116.048	120.1
 Zambia	n/a	117.5
 Spain	111.978	102.8
 France	111.063	101.1
