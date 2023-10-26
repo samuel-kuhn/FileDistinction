@@ -1,4 +1,7 @@
-import argparse, os
+import argparse, os, colorama
+from colorama import Fore, Back, Style
+colorama.init()
+
 #Argparse
 parser = argparse.ArgumentParser(prog="FileDistinction", description="This is a tool for finding all of the differences in two files.")
 
@@ -20,13 +23,9 @@ lines2 = [repr(x) for x in file2.readlines()]
 class colors:
     HEADER = '\033[95m'
     BLUE = '\033[94m'
-    CYAN = '\033[96m'
-    GREEN = '\033[92m'
-    ORANGE = '\033[93m'
     RED = '\033[91m'
     ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
+
 
 #methods
 def colored(color, text):
